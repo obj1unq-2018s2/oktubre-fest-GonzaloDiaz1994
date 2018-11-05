@@ -1,8 +1,8 @@
 class Persona{
-	var property peso
+	const property peso
 	var property jarrasCompradas = []
-	var property escuchaMusicaTradicional
-	var property aguante
+	const property escuchaMusicaTradicional
+	const property aguante
 
 	method estaEbrio() = (self.cantidadAlcoholIngerido() * peso) > aguante
 	
@@ -18,14 +18,16 @@ class Persona{
 	
 	method coincideGustoMusical(carpa) = escuchaMusicaTradicional == carpa.tieneBandaMusical()
 	
-	method quiereEntrarACarpa(carpa) = self.leGustaMarca(carpa.marcaJarra()) and 
-		self.coincideGustoMusical(carpa)
+	method quiereEntrarACarpa(carpa) = self.leGustaMarca(carpa.marcaJarra())
+		and self.coincideGustoMusical(carpa)
 		
 	method puedeEntrarACarpa(carpa) = self.quiereEntrarACarpa(carpa) and carpa.dejaIngresar(self)
 	
 	method ingresarACarpa(carpa){
 		if(self.puedeEntrarACarpa(carpa)){
 			carpa.ingresarPersona(self)
+		}else{
+			self.error("no podes entrar")
 		}
 	}
 	method esEbrioEmpedernido() = jarrasCompradas.all{jarra => jarra.capacidadEnLitros() >= 1}

@@ -5,52 +5,42 @@ import marcas.*
 
 describe "test Oktubre Fest"{
 	
-	const hofbrau = new CervezaRoja(
-		lupulosPorLitro = 4,
+	const hofbrau = new CervezaRoja(lupulosPorLitro = 4,
 		pais = "alemania"
 	)
-	const corona = new CervezaRubia(
-		graduacionAlcoholica = 5,
+	const corona = new CervezaRubia(graduacionAlcoholica = 5,
 		lupulosPorLitro = 5,
 		pais = "republica checa"		
 	)
-	const guinnes = new CervezaNegra(
-		lupulosPorLitro = 6,
+	const guinnes = new CervezaNegra(lupulosPorLitro = 6,
 		pais = "belgica"
 	)
-	const jarraHofbrau = new JarraDeCerveza(
-		capacidadEnLitros = 0.5,
+	const jarraHofbrau = new JarraDeCerveza(capacidadEnLitros = 0.5,
 		marca = hofbrau
 	)
-	const jarraCorona = new JarraDeCerveza(
-		capacidadEnLitros = 1,
+	const jarraCorona = new JarraDeCerveza(capacidadEnLitros = 1,
 		marca = corona
 	)
-	const jarraGuinnes = new JarraDeCerveza(
-		capacidadEnLitros = 2,
+	const jarraGuinnes = new JarraDeCerveza(capacidadEnLitros = 2,
 		marca = guinnes
 	)
 	
-	const gonzalo = new Aleman(
-		peso = 90,
+	const gonzalo = new Aleman(peso = 90,
 		jarrasCompradas = [jarraHofbrau, jarraHofbrau],
 		escuchaMusicaTradicional = true,
 		aguante = 10
 	)
-	const pablo = new Belga(
-		peso = 85,
+	const pablo = new Belga(peso = 85,
 		jarrasCompradas = [jarraCorona, jarraCorona],
 		escuchaMusicaTradicional = true,
 		aguante = 8
 	)
-	const jorgito = new Checo(
-		peso = 100,
+	const jorgito = new Checo(peso = 100,
 		jarrasCompradas = [jarraGuinnes, jarraCorona],
 		escuchaMusicaTradicional = true,
 		aguante = 20
 	)
-	const carpa1 = new CarpaCervecera(
-		limiteDePersonas = 5,
+	const carpa1 = new CarpaCervecera(limiteDePersonas = 5,
 		tieneBandaMusical = true,
 		jarraDeCerveza = jarraHofbrau,
 		personasAdentro = [jorgito, pablo]
@@ -106,6 +96,10 @@ describe "test Oktubre Fest"{
 		gonzalo.ingresarACarpa(carpa1)
 		assert.equals(3,carpa1.cantidadDePersonas())
 	}
+/*	test "jorgito no entra a carpa"{
+		assert.throwsException(jorgito.ingresarACarpa(carpa1))
+	}
+*/
 	test "cantidad de ebrios empedernidos en la carpa son 2"{
 		assert.equals(2,carpa1.cantidadEbriosEmpedernidos())
 	}

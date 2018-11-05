@@ -1,6 +1,6 @@
 class JarraDeCerveza {
 	var property capacidadEnLitros
-	var property marca
+	const property marca
 	
 	method contenidoAlcoholico() = (marca.graduacionAlcoholica() / 100) * capacidadEnLitros
 	
