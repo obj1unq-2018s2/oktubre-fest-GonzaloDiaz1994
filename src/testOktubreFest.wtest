@@ -1,0 +1,122 @@
+import jarras.*
+import carpa.*
+import persona.*
+import marcas.*
+
+describe "test Oktubre Fest"{
+	
+	const hofbrau = new CervezaRoja(
+		lupulosPorLitro = 4,
+		pais = "alemania"
+	)
+	const corona = new CervezaRubia(
+		graduacionAlcoholica = 5,
+		lupulosPorLitro = 5,
+		pais = "republica checa"		
+	)
+	const guinnes = new CervezaNegra(
+		lupulosPorLitro = 6,
+		pais = "belgica"
+	)
+	const jarraHofbrau = new JarraDeCerveza(
+		capacidadEnLitros = 0.5,
+		marca = hofbrau
+	)
+	const jarraCorona = new JarraDeCerveza(
+		capacidadEnLitros = 1,
+		marca = corona
+	)
+	const jarraGuinnes = new JarraDeCerveza(
+		capacidadEnLitros = 2,
+		marca = guinnes
+	)
+	
+	const gonzalo = new Aleman(
+		peso = 90,
+		jarrasCompradas = [jarraHofbrau, jarraHofbrau],
+		escuchaMusicaTradicional = true,
+		aguante = 10
+	)
+	const pablo = new Belga(
+		peso = 85,
+		jarrasCompradas = [jarraCorona, jarraCorona],
+		escuchaMusicaTradicional = true,
+		aguante = 8
+	)
+	const jorgito = new Checo(
+		peso = 100,
+		jarrasCompradas = [jarraGuinnes, jarraCorona],
+		escuchaMusicaTradicional = true,
+		aguante = 20
+	)
+	const carpa1 = new CarpaCervecera(
+		limiteDePersonas = 5,
+		tieneBandaMusical = true,
+		jarraDeCerveza = jarraHofbrau,
+		personasAdentro = [jorgito, pablo]
+	)
+	
+	fixture{
+		reglamentariaMundial.graduacionReglamentaria(8)
+	}
+
+
+	test "contenido alcoholico en jarra"{
+		assert.equals(0.05, jarraHofbrau.contenidoAlcoholico())
+	}
+	test "cantidad alcohol ingerido por gonzalo"{
+		assert.equals(0.1, gonzalo.cantidadAlcoholIngerido())
+	}
+	test "gonzalo le gusta hofbrau"{
+		assert.that(gonzalo.leGustaMarca(hofbrau))
+	}
+	test "pablo no le gusta hofbrau"{
+		assert.notThat(pablo.leGustaMarca(hofbrau))
+	}
+	test "pablo le gusta corona"{
+		assert.that(pablo.leGustaMarca(corona))
+	}
+	test "gonzalo no esta ebrio"{
+		assert.notThat(gonzalo.estaEbrio())
+	}
+	test "gonzalo esta ebrio"{
+		gonzalo.comprarJarra(jarraHofbrau)
+		assert.that(gonzalo.estaEbrio())
+	}
+	test "gonzalo(aleman) no quiere entrar a carpa porque no tiene musica"{
+		carpa1.tieneBandaMusical(false)
+		assert.notThat(gonzalo.quiereEntrarACarpa(carpa1))
+	}
+	test "gonzalo(aleman) quiere entrar a carpa"{
+		assert.that(gonzalo.quiereEntrarACarpa(carpa1))
+	}
+	test "carpa deja ingresar a gonzalo"{
+		assert.that(carpa1.dejaIngresar(gonzalo))
+	}
+	test "carpa no deja ingresar a pablo"{
+		assert.notThat(carpa1.dejaIngresar(pablo))
+	}
+	test "gonzalo puede entrar a carpa"{
+		assert.that(gonzalo.puedeEntrarACarpa(carpa1))
+	}
+	test "pablo no puede entrar a carpa"{
+		assert.notThat(pablo.puedeEntrarACarpa(carpa1))
+	}
+	test "gonzalo entra a carpa"{
+		gonzalo.ingresarACarpa(carpa1)
+		assert.equals(3,carpa1.cantidadDePersonas())
+	}
+	test "cantidad de ebrios empedernidos en la carpa son 2"{
+		assert.equals(2,carpa1.cantidadEbriosEmpedernidos())
+	}
+	test "gonzalo es un apersona patriota"{
+		assert.that(gonzalo.esPatriota())
+	}
+	test "jorgito no es patriota"{
+		assert.notThat(jorgito.esPatriota())
+	}
+}
+
+
+
+
